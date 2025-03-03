@@ -6,12 +6,22 @@
   <body>
     <h1>Sumador</h1>
     <form id="totalizador-form">
-      
       <label for="cant-item">Cantidad de Items:</label>
-      <input type="float" id="primer-numero" />
+      <input type="number" id="primer-numero" />
       <br>
       <label for="precio-item">Precio del item:</label>
-      <input type="float" id="segundo-numero" />
+      <input type="number" id="segundo-numero" />
+      <br>
+      <label for="categoria">Seleccione la categoría:</label>
+      <select name="lista-categoria" id="categoria-Select">
+        <option value="Alimentos">Alimentos</option>
+        <option value="Bebidas Alcoholicas">Bebidas Alcoholicas</option>
+        <option value="Material Escritorio">Material Escritorio</option>
+        <option value="Muebles">Muebles</option>
+        <option value="Electronicos">Electronicos</option>
+        <option value="Vestimenta">Vestimenta</option>
+        <option value="Varios">Varios</option>
+      </select>
       <br>
       <label for="estados">Seleccione su estado:</label>
       <select name="lista-estado" id="estados-Select">
@@ -23,11 +33,10 @@
       </select>
       <br>
       <input type="submit" value="Totalizar" id="totalizador-button"/>
-
     </form>
     <br>
     <div id="resultado-div"></div>
-
+    
     <script type="module" src="./src/presenter.js"></script>
   </body>
 </html>
