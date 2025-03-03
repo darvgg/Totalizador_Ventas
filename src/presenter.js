@@ -1,5 +1,6 @@
 import { mostrar } from "./totalizador.js";
 
+const tipo_cliente_select = document.querySelector("#cliente-Select"); //Nuevo select de tipo de cliente
 const cant_item = document.querySelector("#primer-numero");
 const precio_item = document.querySelector("#segundo-numero");
 const peso_item = document.querySelector("#tercer-numero");
@@ -11,11 +12,12 @@ const categoria_select = document.querySelector("#categoria-Select"); // Nuevo s
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
+  const tipo_cliente = tipo_cliente_select.value; // Obtener el tipo de cliente
   const cantItem = Number.parseFloat(cant_item.value);
   const precioItem = Number.parseFloat(precio_item.value);
   const pesoItem = Number.parseFloat(peso_item.value);
   const cod_estado = estado_select.value;
   const categoria = categoria_select.value; // Obtener la categoría seleccionada
 
-  div.innerHTML = "<p>" + mostrar(cantItem, precioItem, cod_estado, categoria, pesoItem) + "</p>";
+  div.innerHTML = "<p>" + mostrar(cantItem, precioItem, cod_estado, categoria, pesoItem,tipo_cliente) + "</p>";
 });

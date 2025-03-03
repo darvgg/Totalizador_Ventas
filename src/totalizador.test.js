@@ -15,13 +15,13 @@ test("Calcula el descuento correctamente", () => {
 });
 
 test("Calcula el impuesto por categoría correctamente", () => {
-  expect(mostrar(10, 5, "TX", "Alimentos", 0)).toContain("Impuesto por categoría (%2): 1");
-  expect(mostrar(10, 5, "TX", "Bebidas Alcoholicas", 0)).toContain("Impuesto por categoría (%10): 5");
-  expect(mostrar(10, 5, "TX", "Electronicos", 0)).toContain("Impuesto por categoría (%12): 6");
+  expect(mostrar(10, 5, "TX", "Alimentos", 0, "")).toContain("Impuesto por categoría (%2): 1");
+  expect(mostrar(10, 5, "TX", "Bebidas Alcoholicas", 0, "")).toContain("Impuesto por categoría (%10): 5");
+  expect(mostrar(10, 5, "TX", "Electronicos", 0, "")).toContain("Impuesto por categoría (%12): 6");
 });
 
 test("Muestra correctamente la información con impuestos y descuentos", () => {
-  const resultado = mostrar(20, 3, "TX", "Alimentos");
+  const resultado = mostrar(20, 3, "TX", "Alimentos",0,"");
   expect(resultado).toContain("Precio neto (20 * 3$): 60$");
   expect(resultado).toContain("Impuesto para TX (%6.25): 3.75");
   expect(resultado).toContain("Impuesto por categoría (%2): 1.2");
