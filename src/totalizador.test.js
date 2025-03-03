@@ -53,4 +53,19 @@ describe("Mostrar el precio total con el impuesto por categoría", () => {
   it("Muestra el precio total con el impuesto de Material de Escritorio", () => {
     expect(calcular_precio_total_con_impuesto(100, "Material Escritorio")).toEqual(107);
   });
+  it("Muestra el precio total con el impuesto de Muebles", () => {
+    expect(calcular_precio_total_con_impuesto(100, "Muebles")).toEqual(110);
+  });
+
+  it("Muestra el precio total con el impuesto de Electrónicos", () => {
+    expect(calcular_precio_total_con_impuesto(100, "Electronicos")).toEqual(115);
+  });
+
+  it("Muestra el precio total con el impuesto de Vestimenta", () => {
+    expect(calcular_precio_total_con_impuesto(100, "Vestimenta")).toEqual(108);
+  });
+
+  it("Muestra el precio total con el impuesto de Varios", () => {
+    expect(calcular_precio_total_con_impuesto(100, "Varios")).toEqual(102);
+  });
 });
