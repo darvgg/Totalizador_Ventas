@@ -31,5 +31,6 @@ test("Muestra correctamente la información con impuestos y descuentos", () => {
 test("Calcula el costo de envio correctamente", () => {
  expect(calcular_costo_envio(34,0.2)).toBe(0); //34 items pesando c/u 200gr
  expect(calcular_costo_envio(15,0.8)).toBe(3.5); //15 items pesando c/u 800gr
+ expect(calcular_costo_envio(13,2.2)).toBe(5); //13 items pesando c/u 2.2Kg
 
 });
