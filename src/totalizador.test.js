@@ -35,5 +35,5 @@ test("Calcula el costo de envio correctamente", () => {
  expect(calcular_costo_envio(3,15)).toBe(6); //3 items pesando c/u 15Kg
  expect(calcular_costo_envio(4,22)).toBe(6.50); //4 items pesando c/u 22Kg
  expect(calcular_costo_envio(2,64)).toBe(8); //2 items pesando c/u 64Kg
-
+ expect(calcular_costo_envio(2,103)).toBe(9); //2 items pesando c/u 103Kg
 });
