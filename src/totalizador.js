@@ -113,7 +113,7 @@ function calcular_costo_envio(cant_item,peso_item){
   return costo_envio;
 }
 
-function mostrar(cantidad, precio, cod_estado, categoria,peso_item) {
+function mostrar(cantidad, precio, cod_estado, categoria, peso_item) {
   let precio_n = precio_neto(cantidad, precio);
   let porcentaje_impuesto_estado = obtener_porcentaje_impuesto_estado(cod_estado);
   let impuesto_estado = calcular_impuesto_estado(precio_n, cod_estado);
@@ -128,19 +128,20 @@ function mostrar(cantidad, precio, cod_estado, categoria,peso_item) {
 
   let mostrar_p = `
     La cantidad es: ${cantidad}<br>
-    El precio por unidad es: ${precio}$<br>
+    El precio por unidad es: $${precio.toFixed(2)}<br>
     Código de estado es: ${cod_estado}<br>
     Categoría es: ${categoria}<br>
-    Precio neto (${cantidad} * ${precio}$): ${precio_n}$<br>
-    Costo de envio: ${costo_envio}$<br>
-    Descuento (%${(porcentaje_descuento * 100)}): ${descuento}$<br>
-    Impuesto para ${cod_estado} (%${(porcentaje_impuesto_estado * 100)}): ${impuesto_estado}$<br>
-    Impuesto por categoría (%${(porcentaje_impuesto_categoria * 100)}): ${impuesto_categoria}$<br>
-    Precio total (descuento e impuestos): ${precio_total}$
+    Precio neto (${cantidad} * $${precio.toFixed(2)}): $${precio_n.toFixed(2)}<br>
+    Costo de envío: $${costo_envio.toFixed(2)}<br>
+    Descuento (${(porcentaje_descuento * 100).toFixed(2)}%): -$${descuento.toFixed(2)}<br>
+    Impuesto para ${cod_estado} (${(porcentaje_impuesto_estado * 100).toFixed(2)}%): +$${impuesto_estado.toFixed(2)}<br>
+    Impuesto por categoría (${(porcentaje_impuesto_categoria * 100).toFixed(2)}%): +$${impuesto_categoria.toFixed(2)}<br>
+    Precio total (con descuentos e impuestos): $${precio_total.toFixed(2)}
   `;
 
   return mostrar_p;
 }
+
 
 export {
   precio_neto,
