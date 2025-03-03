@@ -1,4 +1,4 @@
-import { precio_neto, calcular_impuesto_estado,calcular_descuento } from "./totalizador.js";
+import { precio_neto, calcular_impuesto_estado, calcular_descuento, calcular_precio_total_con_impuesto } from "./totalizador.js";
 
 describe("Mostrara el precio neto del producto", () => {
   it("Muestra la cantidad del producto ingresado", () => {
@@ -24,20 +24,26 @@ describe("Mostrara el impuesto segun el estado", () => {
   });
 });
 
-describe ("Mostrar el descuento segun el precio neto",()=>{
-  it("Muestra el descuento correspondiente a 1000$",()=>{
+describe("Mostrar el descuento segun el precio neto", () => {
+  it("Muestra el descuento correspondiente a 1000$", () => {
     expect(calcular_descuento(1000)).toEqual(30);
   });
-  it("Muestra el descuento correspondiente a 3000$",()=>{
+  it("Muestra el descuento correspondiente a 3000$", () => {
     expect(calcular_descuento(3000)).toEqual(150);
   });
-  it("Muestra el descuento correspondiente a 7000$",()=>{
+  it("Muestra el descuento correspondiente a 7000$", () => {
     expect(calcular_descuento(7000)).toEqual(490);
   });
-  it("Muestra el descuento correspondiente a 10000$",()=>{
+  it("Muestra el descuento correspondiente a 10000$", () => {
     expect(calcular_descuento(10000)).toEqual(1000);
   });
-  it("Muestra el descuento correspondiente a 30000$",()=>{
+  it("Muestra el descuento correspondiente a 30000$", () => {
     expect(calcular_descuento(30000)).toEqual(4500);
+  });
+});
+
+describe("Mostrar el precio total con el impuesto por categoría", () => {
+  it("Muestra el precio total con el impuesto de Alimentos", () => {
+    expect(calcular_precio_total_con_impuesto(100, "Alimentos")).toEqual(105);
   });
 });

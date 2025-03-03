@@ -77,4 +77,40 @@ function mostrar(cantidad,precio,cod_estado){
   return mostrar_p; 
 }
 
-export {precio_neto, calcular_impuesto_estado,calcular_descuento,mostrar};
+function obtener_porcentaje_impuesto_categoria(categoria) {
+  let porcentaje_impuesto;
+  switch (categoria) {
+    case "Alimentos":
+      porcentaje_impuesto = 0.05;
+      break;
+    case "Bebidas Alcoholicas":
+      porcentaje_impuesto = 0.18;
+      break;
+    case "Material Escritorio":
+      porcentaje_impuesto = 0.07;
+      break;
+    case "Muebles":
+      porcentaje_impuesto = 0.10;
+      break;
+    case "Electronicos":
+      porcentaje_impuesto = 0.15;
+      break;
+    case "Vestimenta":
+      porcentaje_impuesto = 0.08;
+      break;
+    case "Varios":
+      porcentaje_impuesto = 0.02;
+      break;
+    default:
+      porcentaje_impuesto = 0; // Si la categoría no existe, no aplica impuesto
+  }
+  return porcentaje_impuesto;
+}
+
+function calcular_precio_total_con_impuesto(precio, categoria) {
+  let impuesto_categoria = obtener_porcentaje_impuesto_categoria(categoria);
+  let precio_total = precio + (precio * impuesto_categoria);
+  return parseFloat(precio_total.toFixed(2));
+}
+
+export { precio_neto, calcular_impuesto_estado, calcular_descuento, mostrar, calcular_precio_total_con_impuesto };
