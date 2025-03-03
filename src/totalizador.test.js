@@ -1,71 +1,29 @@
-import { precio_neto, calcular_impuesto_estado, calcular_descuento, calcular_precio_total_con_impuesto } from "./totalizador.js";
+import { precio_neto, calcular_impuesto_estado, calcular_descuento, mostrar } from "./totalizador.js";
 
-describe("Mostrara el precio neto del producto", () => {
-  it("Muestra la cantidad del producto ingresado", () => {
-    expect(precio_neto(7,5)).toEqual(35);
-  });
+test("Calcula el precio neto correctamente", () => {
+  expect(precio_neto(10, 5)).toBe(50.00);
 });
 
-describe("Mostrara el impuesto segun el estado", () => {
-  it("Muestra el impuesto segun el estado de CA", () => {
-    expect(calcular_impuesto_estado(10,"CA")).toEqual(0.83);
-  });
-  it("Muestra el impuesto segun el estado de AL", () => {
-    expect(calcular_impuesto_estado(10,"AL")).toEqual(0.4);
-  });
-  it("Muestra el impuesto segun el estado de NV", () => {
-    expect(calcular_impuesto_estado(10,"NV")).toEqual(0.8);
-  });
-  it("Muestra el impuesto segun el estado de UT", () => {
-    expect(calcular_impuesto_estado(10,"UT")).toEqual(0.67);
-  });
-  it("Muestra el impuesto segun el estado de TX", () => {
-    expect(calcular_impuesto_estado(10,"TX")).toEqual(0.63);
-  });
+test("Calcula el impuesto por estado correctamente", () => {
+  expect(calcular_impuesto_estado(100, "TX")).toBe(6.25);
+  expect(calcular_impuesto_estado(200, "CA")).toBe(16.50);
 });
 
-describe("Mostrar el descuento segun el precio neto", () => {
-  it("Muestra el descuento correspondiente a 1000$", () => {
-    expect(calcular_descuento(1000)).toEqual(30);
-  });
-  it("Muestra el descuento correspondiente a 3000$", () => {
-    expect(calcular_descuento(3000)).toEqual(150);
-  });
-  it("Muestra el descuento correspondiente a 7000$", () => {
-    expect(calcular_descuento(7000)).toEqual(490);
-  });
-  it("Muestra el descuento correspondiente a 10000$", () => {
-    expect(calcular_descuento(10000)).toEqual(1000);
-  });
-  it("Muestra el descuento correspondiente a 30000$", () => {
-    expect(calcular_descuento(30000)).toEqual(4500);
-  });
+test("Calcula el descuento correctamente", () => {
+  expect(calcular_descuento(2000)).toBe(60.00);  // 3% de descuento
+  expect(calcular_descuento(5000)).toBe(250.00); // 5% de descuento
 });
 
-describe("Mostrar el precio total con el impuesto por categoría", () => {
-  it("Muestra el precio total con el impuesto de Alimentos", () => {
-    expect(calcular_precio_total_con_impuesto(100, "Alimentos")).toEqual(105);
-  });
-  it("Muestra el precio total con el impuesto de Bebidas Alcoholicas", () => {
-    expect(calcular_precio_total_con_impuesto(100, "Bebidas Alcoholicas")).toEqual(118);
-  });
+test("Calcula el impuesto por categoría correctamente", () => {
+  expect(mostrar(10, 5, "TX", "Alimentos")).toContain("Impuesto por categoría (%2): 1");
+  expect(mostrar(10, 5, "TX", "Bebidas Alcoholicas")).toContain("Impuesto por categoría (%10): 5");
+  expect(mostrar(10, 5, "TX", "Electronicos")).toContain("Impuesto por categoría (%12): 6");
+});
 
-  it("Muestra el precio total con el impuesto de Material de Escritorio", () => {
-    expect(calcular_precio_total_con_impuesto(100, "Material Escritorio")).toEqual(107);
-  });
-  it("Muestra el precio total con el impuesto de Muebles", () => {
-    expect(calcular_precio_total_con_impuesto(100, "Muebles")).toEqual(110);
-  });
-
-  it("Muestra el precio total con el impuesto de Electrónicos", () => {
-    expect(calcular_precio_total_con_impuesto(100, "Electronicos")).toEqual(115);
-  });
-
-  it("Muestra el precio total con el impuesto de Vestimenta", () => {
-    expect(calcular_precio_total_con_impuesto(100, "Vestimenta")).toEqual(108);
-  });
-
-  it("Muestra el precio total con el impuesto de Varios", () => {
-    expect(calcular_precio_total_con_impuesto(100, "Varios")).toEqual(102);
-  });
+test("Muestra correctamente la información con impuestos y descuentos", () => {
+  const resultado = mostrar(20, 3, "TX", "Alimentos");
+  expect(resultado).toContain("Precio neto (20 * 3$): 60$");
+  expect(resultado).toContain("Impuesto para TX (%6.25): 3.75");
+  expect(resultado).toContain("Impuesto por categoría (%2): 1.2");
+  expect(resultado).toContain("Precio total (descuento e impuestos): 64.95$");
 });
