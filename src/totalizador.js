@@ -99,9 +99,10 @@ function calcular_costo_envio(cant_item,peso_item){
     costo_envio = 0;
   } else if (11 <= peso_volumetrico && peso_volumetrico <= 20){
     costo_envio = 3.5;
-  }
-  else if (21 <= peso_volumetrico && peso_volumetrico <= 40){
+  }  else if (21 <= peso_volumetrico && peso_volumetrico <= 40){
     costo_envio = 5;
+  } else if (41 <= peso_volumetrico && peso_volumetrico < 80){
+    costo_envio = 6;
   }
   return costo_envio;
 }
