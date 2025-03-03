@@ -97,6 +97,8 @@ function calcular_costo_envio(cant_item,peso_item){
   let costo_envio = 0; // valor por defecto
   if (0 < peso_volumetrico && peso_volumetrico <= 10){
     costo_envio = 0;
+  } else if (11 <= peso_volumetrico && peso_volumetrico <= 20){
+    costo_envio = 3.5;
   }
   return costo_envio;
 }
@@ -107,12 +109,12 @@ function mostrar(cantidad, precio, cod_estado, categoria,peso_item) {
   let impuesto_estado = calcular_impuesto_estado(precio_n, cod_estado);
   let porcentaje_descuento = obtener_porcentaje_descuento(precio_n);
   let descuento = calcular_descuento(precio_n);
-  let costo_envio = calcular_costo_envio(cantidad,peso_item);
+  let costo_envio = calcular_costo_envio(cantidad, peso_item);
 
   let porcentaje_impuesto_categoria = obtener_porcentaje_impuesto_categoria(categoria);
-  let impuesto_categoria = precio_n * porcentaje_impuesto_categoria;
+  let impuesto_categoria = parseFloat((precio_n * porcentaje_impuesto_categoria).toFixed(2));
 
-  let precio_total = precio_n + costo_envio + impuesto_estado + impuesto_categoria - descuento;
+  let precio_total = parseFloat((precio_n + costo_envio + impuesto_estado + impuesto_categoria - descuento).toFixed(2));
 
   let mostrar_p = `
     La cantidad es: ${cantidad}<br>
@@ -124,7 +126,7 @@ function mostrar(cantidad, precio, cod_estado, categoria,peso_item) {
     Descuento (%${(porcentaje_descuento * 100)}): ${descuento}$<br>
     Impuesto para ${cod_estado} (%${(porcentaje_impuesto_estado * 100)}): ${impuesto_estado}$<br>
     Impuesto por categoría (%${(porcentaje_impuesto_categoria * 100)}): ${impuesto_categoria}$<br>
-    Precio total (descuento e impuestos): ${precio_total.toFixed(2)}$
+    Precio total (descuento e impuestos): ${precio_total}$
   `;
 
   return mostrar_p;

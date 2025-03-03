@@ -15,9 +15,9 @@ test("Calcula el descuento correctamente", () => {
 });
 
 test("Calcula el impuesto por categoría correctamente", () => {
-  expect(mostrar(10, 5, "TX", "Alimentos")).toContain("Impuesto por categoría (%2): 1");
-  expect(mostrar(10, 5, "TX", "Bebidas Alcoholicas")).toContain("Impuesto por categoría (%10): 5");
-  expect(mostrar(10, 5, "TX", "Electronicos")).toContain("Impuesto por categoría (%12): 6");
+  expect(mostrar(10, 5, "TX", "Alimentos", 0)).toContain("Impuesto por categoría (%2): 1");
+  expect(mostrar(10, 5, "TX", "Bebidas Alcoholicas", 0)).toContain("Impuesto por categoría (%10): 5");
+  expect(mostrar(10, 5, "TX", "Electronicos", 0)).toContain("Impuesto por categoría (%12): 6");
 });
 
 test("Muestra correctamente la información con impuestos y descuentos", () => {
@@ -29,5 +29,7 @@ test("Muestra correctamente la información con impuestos y descuentos", () => {
 });
 
 test("Calcula el costo de envio correctamente", () => {
- expect(calcular_costo_envio(34,0.2)).toBe(0);
+ expect(calcular_costo_envio(34,0.2)).toBe(0); //34 items pesando c/u 200gr
+ expect(calcular_costo_envio(15,0.8)).toBe(3.5); //15 items pesando c/u 800gr
+
 });
