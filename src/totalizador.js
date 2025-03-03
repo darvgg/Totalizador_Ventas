@@ -87,7 +87,7 @@ function calcular_precio_total_con_impuesto(precio, categoria) {
   return parseFloat(precio_total.toFixed(2));
 }
 
-function mostrar(cantidad, precio, cod_estado, categoria) {
+function mostrar(cantidad, precio, cod_estado, categoria,peso_item) {
   let precio_n = precio_neto(cantidad, precio);
   let porcentaje_impuesto_estado = obtener_porcentaje_impuesto_estado(cod_estado);
   let impuesto_estado = calcular_impuesto_estado(precio_n, cod_estado);
