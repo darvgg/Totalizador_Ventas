@@ -46,4 +46,11 @@ describe("Mostrar el precio total con el impuesto por categoría", () => {
   it("Muestra el precio total con el impuesto de Alimentos", () => {
     expect(calcular_precio_total_con_impuesto(100, "Alimentos")).toEqual(105);
   });
+  it("Muestra el precio total con el impuesto de Bebidas Alcoholicas", () => {
+    expect(calcular_precio_total_con_impuesto(100, "Bebidas Alcoholicas")).toEqual(118);
+  });
+
+  it("Muestra el precio total con el impuesto de Material de Escritorio", () => {
+    expect(calcular_precio_total_con_impuesto(100, "Material Escritorio")).toEqual(107);
+  });
 });
