@@ -1,4 +1,4 @@
-import { precio_neto, calcular_impuesto_estado, calcular_descuento, mostrar } from "./totalizador.js";
+import { precio_neto, calcular_impuesto_estado, calcular_descuento, calcular_costo_envio,mostrar } from "./totalizador.js";
 
 test("Calcula el precio neto correctamente", () => {
   expect(precio_neto(10, 5)).toBe(50.00);
@@ -26,4 +26,8 @@ test("Muestra correctamente la información con impuestos y descuentos", () => {
   expect(resultado).toContain("Impuesto para TX (%6.25): 3.75");
   expect(resultado).toContain("Impuesto por categoría (%2): 1.2");
   expect(resultado).toContain("Precio total (descuento e impuestos): 64.95$");
+});
+
+test("Calcula el costo de envio correctamente", () => {
+ expect(calcular_costo_envio(34,0.2)).toBe(0);
 });

@@ -87,24 +87,40 @@ function calcular_precio_total_con_impuesto(precio, categoria) {
   return parseFloat(precio_total.toFixed(2));
 }
 
+function calcular_peso_volumetrico(cant_item,peso_item){
+  let peso_volumetrico = cant_item * peso_item;
+  return parseFloat(peso_volumetrico.toFixed(2));
+}
+
+function calcular_costo_envio(cant_item,peso_item){
+  let peso_volumetrico = calcular_peso_volumetrico(cant_item,peso_item);
+  let costo_envio = 0; // valor por defecto
+  if (0 < peso_volumetrico && peso_volumetrico <= 10){
+    costo_envio = 0;
+  }
+  return costo_envio;
+}
+
 function mostrar(cantidad, precio, cod_estado, categoria,peso_item) {
   let precio_n = precio_neto(cantidad, precio);
   let porcentaje_impuesto_estado = obtener_porcentaje_impuesto_estado(cod_estado);
   let impuesto_estado = calcular_impuesto_estado(precio_n, cod_estado);
   let porcentaje_descuento = obtener_porcentaje_descuento(precio_n);
   let descuento = calcular_descuento(precio_n);
+  let costo_envio = calcular_costo_envio(cantidad,peso_item);
 
   let porcentaje_impuesto_categoria = obtener_porcentaje_impuesto_categoria(categoria);
   let impuesto_categoria = precio_n * porcentaje_impuesto_categoria;
 
-  let precio_total = precio_n + impuesto_estado + impuesto_categoria - descuento;
+  let precio_total = precio_n + costo_envio + impuesto_estado + impuesto_categoria - descuento;
 
   let mostrar_p = `
     La cantidad es: ${cantidad}<br>
     El precio por unidad es: ${precio}$<br>
-    Código de estado: ${cod_estado}<br>
-    Categoría: ${categoria}<br>
+    Código de estado es: ${cod_estado}<br>
+    Categoría es: ${categoria}<br>
     Precio neto (${cantidad} * ${precio}$): ${precio_n}$<br>
+    Costo de envio: ${costo_envio}$<br>
     Descuento (%${(porcentaje_descuento * 100)}): ${descuento}$<br>
     Impuesto para ${cod_estado} (%${(porcentaje_impuesto_estado * 100)}): ${impuesto_estado}$<br>
     Impuesto por categoría (%${(porcentaje_impuesto_categoria * 100)}): ${impuesto_categoria}$<br>
@@ -120,4 +136,5 @@ export {
   calcular_descuento,
   mostrar,
   calcular_precio_total_con_impuesto,
+  calcular_costo_envio
 };
