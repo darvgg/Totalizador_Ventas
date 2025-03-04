@@ -87,27 +87,27 @@ function calcular_precio_total_con_impuesto(precio, categoria) {
   return parseFloat(precio_total.toFixed(2));
 }
 
-function calcular_peso_volumetrico(cant_item,peso_item){
+function calcular_peso_volumetrico(cant_item, peso_item) {
   let peso_volumetrico = cant_item * peso_item;
   return parseFloat(peso_volumetrico.toFixed(2));
 }
 
-function calcular_costo_envio(cant_item,peso_item){
-  let peso_volumetrico = calcular_peso_volumetrico(cant_item,peso_item);
+function calcular_costo_envio(cant_item, peso_item) {
+  let peso_volumetrico = calcular_peso_volumetrico(cant_item, peso_item);
   let costo_envio = 0; // valor por defecto
-  if (0 < peso_volumetrico && peso_volumetrico <= 10){
+  if (0 < peso_volumetrico && peso_volumetrico <= 10) {
     costo_envio = 0;
-  } else if (11 <= peso_volumetrico && peso_volumetrico <= 20){
+  } else if (11 <= peso_volumetrico && peso_volumetrico <= 20) {
     costo_envio = 3.5;
-  }  else if (21 <= peso_volumetrico && peso_volumetrico <= 40){
+  } else if (21 <= peso_volumetrico && peso_volumetrico <= 40) {
     costo_envio = 5;
-  } else if (41 <= peso_volumetrico && peso_volumetrico < 80){
+  } else if (41 <= peso_volumetrico && peso_volumetrico < 80) {
     costo_envio = 6;
-  }else if (80 <= peso_volumetrico && peso_volumetrico <= 100){
+  } else if (80 <= peso_volumetrico && peso_volumetrico <= 100) {
     costo_envio = 6.5;
-  }else if (101 <= peso_volumetrico && peso_volumetrico <= 200){
+  } else if (101 <= peso_volumetrico && peso_volumetrico <= 200) {
     costo_envio = 8;
-  }else if (201 <= peso_volumetrico){
+  } else if (201 <= peso_volumetrico) {
     costo_envio = 9;
   }
   return costo_envio;
@@ -136,12 +136,12 @@ function mostrar(cantidad, precio, cod_estado, categoria, peso_item) {
     Descuento (${(porcentaje_descuento * 100).toFixed(2)}%): -$${descuento.toFixed(2)}<br>
     Impuesto para ${cod_estado} (${(porcentaje_impuesto_estado * 100).toFixed(2)}%): +$${impuesto_estado.toFixed(2)}<br>
     Impuesto por categoría (${(porcentaje_impuesto_categoria * 100).toFixed(2)}%): +$${impuesto_categoria.toFixed(2)}<br>
+    Mostrar el precio total con el Descuento de categoria de ${categoria}<br>
     Precio total (con descuentos e impuestos): $${precio_total.toFixed(2)}
   `;
 
   return mostrar_p;
 }
-
 
 export {
   precio_neto,
