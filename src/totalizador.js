@@ -46,13 +46,14 @@ function obtener_porcentaje_impuesto_categoria(categoria) {
 
 function obtener_porcentaje_descuento_cliente(tipo_cliente) {
   const descuentos = {
-    Normal: 0.00,
-    Recurrente: 0.005,
+    "Normal": 0.00,
+    "Recurrente": 0.005,
     "Antiguo Recurrente": 0.01,
-    Especial: 0.015
+    "Especial": 0.015
   };
   return descuentos[tipo_cliente] || 0;
 }
+
 
 function calcular_precio_total_con_impuesto(precio, categoria) {
   return parseFloat((precio + precio * obtener_porcentaje_impuesto_categoria(categoria)).toFixed(2));
