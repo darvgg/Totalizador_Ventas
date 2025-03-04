@@ -136,7 +136,7 @@ function mostrar(cantidad, precio, cod_estado, categoria, peso_item) {
     Descuento (${(porcentaje_descuento * 100).toFixed(2)}%): -$${descuento.toFixed(2)}<br>
     Impuesto para ${cod_estado} (${(porcentaje_impuesto_estado * 100).toFixed(2)}%): +$${impuesto_estado.toFixed(2)}<br>
     Impuesto por categoría (${(porcentaje_impuesto_categoria * 100).toFixed(2)}%): +$${impuesto_categoria.toFixed(2)}<br>
-    Mostrar el precio total con el Descuento de categoria de ${categoria}<br>
+    Mostrar el precio total con el Descuento de categoría de ${categoria}: $${(precio_n - descuento).toFixed(2)}<br>
     Precio total (con descuentos e impuestos): $${precio_total.toFixed(2)}
   `;
 
