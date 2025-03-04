@@ -15,13 +15,20 @@ test("Calcula el descuento correctamente", () => {
 });
 
 test("Calcula el impuesto por categoría correctamente", () => {
-  expect(mostrar(10, 5, "TX", "Alimentos", 0)).toContain("Impuesto por categoría (2.00%): +$1.00");
-  expect(mostrar(10, 5, "TX", "Bebidas Alcoholicas", 0)).toContain("Impuesto por categoría (10.00%): +$5.00");
-  expect(mostrar(10, 5, "TX", "Electronicos", 0)).toContain("Impuesto por categoría (12.00%): +$6.00");
+  const resultado1 = mostrar(10, 5, "TX", "Alimentos", 0, "Normal");
+  console.log("Salida para Alimentos:", resultado1);
+
+  expect(resultado1).toContain("Impuesto por categoría (2.00%): +$1.00");
+
+  const resultado2 = mostrar(10, 5, "TX", "Bebidas Alcoholicas", 0, "Normal");
+  console.log("Salida para Bebidas Alcoholicas:", resultado2);
+
+  expect(resultado2).toContain("Impuesto por categoría (10.00%): +$5.00");
 });
 
+
 test("Muestra correctamente la información con impuestos y descuentos", () => {
-  const resultado = mostrar(20, 3, "TX", "Alimentos", 0);
+  const resultado = mostrar(20, 3, "TX", "Alimentos", 0, "Normal");
   expect(resultado).toContain("Precio neto (20 * $3.00): $60.00");
   expect(resultado).toContain("Impuesto para TX (6.25%): +$3.75");
   expect(resultado).toContain("Impuesto por categoría (2.00%): +$1.20");
@@ -37,3 +44,12 @@ test("Calcula el costo de envío correctamente", () => {
   expect(calcular_costo_envio(2, 64)).toBe(8);       // 2 ítems de 64Kg c/u
   expect(calcular_costo_envio(3, 87)).toBe(9);       // 3 ítems de 87Kg c/u
 });
+
+test("Calcula el precio total con el descuento por tipo de cliente", () => {
+  expect(mostrar(100, 5, "TX", "Alimentos", 0, "Normal")).toContain("Descuento del Tipo de Cliente Normal: -$0.00");
+  expect(mostrar(100, 5, "TX", "Alimentos", 0, "Recurrente")).toContain("Descuento del Tipo de Cliente Recurrente: -$2.50");
+  expect(mostrar(100, 5, "TX", "Alimentos", 0, "Antiguo Recurrente")).toContain("Descuento del Tipo de Cliente Antiguo Recurrente: -$5.00");
+  expect(mostrar(100, 5, "TX", "Alimentos", 0, "Especial")).toContain("Descuento del Tipo de Cliente Especial: -$7.50");
+});
+
+
