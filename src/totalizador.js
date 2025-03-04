@@ -33,13 +33,13 @@ function calcular_descuento(precio_neto) {
 
 function obtener_porcentaje_impuesto_categoria(categoria) {
   const impuestos = {
-    Alimentos: 0.02,
+    "Alimentos": 0.02,
     "Bebidas Alcoholicas": 0.1,
     "Material Escritorio": 0.05,
-    Muebles: 0.08,
-    Electronicos: 0.12,
-    Vestimenta: 0.04,
-    Varios: 0.06
+    "Muebles": 0.08,
+    "Electronicos": 0.12,
+    "Vestimenta": 0.04,
+    "Varios": 0.06
   };
   return impuestos[categoria] || 0;
 }
