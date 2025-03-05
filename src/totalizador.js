@@ -1,9 +1,9 @@
-function precio_neto(a, b) {
-  let precio = a * b;
-  return parseFloat(precio.toFixed(2));
+function precioNeto(cantidad, precio) {
+  let total = cantidad * precio;
+  return parseFloat(total.toFixed(2));
 }
 
-function obtener_porcentaje_impuesto_estado(cod_estado) {
+function obtenerPorcentajeImpuestoEstado(estado) {
   const impuestos = {
     CA: 0.0825,
     AL: 0.04,
@@ -11,27 +11,27 @@ function obtener_porcentaje_impuesto_estado(cod_estado) {
     UT: 0.0665,
     TX: 0.0625
   };
-  return impuestos[cod_estado] || 0;
+  return impuestos[estado] || 0;
 }
 
-function calcular_impuesto_estado(precio_n, cod_estado) {
-  return parseFloat((precio_n * obtener_porcentaje_impuesto_estado(cod_estado)).toFixed(2));
+function calcularImpuestoEstado(precioN, estado) {
+  return parseFloat((precioN * obtenerPorcentajeImpuestoEstado(estado)).toFixed(2));
 }
 
-function obtener_porcentaje_descuento(precio_neto) {
-  if (precio_neto >= 30000) return 0.15;
-  if (precio_neto >= 10000) return 0.10;
-  if (precio_neto >= 7000) return 0.07;
-  if (precio_neto >= 3000) return 0.05;
-  if (precio_neto >= 1000) return 0.03;
+function obtenerPorcentajeDescuento(precioNeto) {
+  if (precioNeto >= 30000) return 0.15;
+  if (precioNeto >= 10000) return 0.10;
+  if (precioNeto >= 7000) return 0.07;
+  if (precioNeto >= 3000) return 0.05;
+  if (precioNeto >= 1000) return 0.03;
   return 0;
 }
 
-function calcular_descuento(precio_neto) {
-  return parseFloat((precio_neto * obtener_porcentaje_descuento(precio_neto)).toFixed(2));
+function calcularDescuento(precioNeto) {
+  return parseFloat((precioNeto * obtenerPorcentajeDescuento(precioNeto)).toFixed(2));
 }
 
-function obtener_porcentaje_impuesto_categoria(categoria) {
+function obtenerPorcentajeImpuestoCategoria(categoria) {
   const impuestos = {
     "Alimentos": 0.02,
     "Bebidas Alcoholicas": 0.1,
@@ -44,57 +44,57 @@ function obtener_porcentaje_impuesto_categoria(categoria) {
   return impuestos[categoria] || 0;
 }
 
-function obtener_porcentaje_descuento_cliente(tipo_cliente) {
+function obtenerPorcentajeDescuentoCliente(tipoCliente) {
   const descuentos = {
     "Normal": 0.00,
     "Recurrente": 0.005,
     "Antiguo Recurrente": 0.01,
     "Especial": 0.015
   };
-  return descuentos[tipo_cliente] || 0;
+  return descuentos[tipoCliente] || 0;
 }
 
-
-function calcular_precio_total_con_impuesto(precio, categoria) {
-  return parseFloat((precio + precio * obtener_porcentaje_impuesto_categoria(categoria)).toFixed(2));
+function calcularPrecioTotalConImpuesto(precio, categoria) {
+  return parseFloat((precio + precio * obtenerPorcentajeImpuestoCategoria(categoria)).toFixed(2));
 }
 
-function calcular_peso_volumetrico(cant_item, peso_item) {
-  return parseFloat((cant_item * peso_item).toFixed(2));
+function calcularPesoVolumetrico(cantidad, pesoItem) {
+  return parseFloat((cantidad * pesoItem).toFixed(2));
 }
 
-function calcular_costo_envio(cant_item, peso_item) {
-  let peso_volumetrico = calcular_peso_volumetrico(cant_item, peso_item);
-  if (peso_volumetrico <= 10) return 0;
-  if (peso_volumetrico <= 20) return 3.5;
-  if (peso_volumetrico <= 40) return 5;
-  if (peso_volumetrico < 80) return 6;
-  if (peso_volumetrico <= 100) return 6.5;
-  if (peso_volumetrico <= 200) return 8;
+function calcularCostoEnvio(cantidad, pesoItem) {
+  let pesoVolumetrico = calcularPesoVolumetrico(cantidad, pesoItem);
+  if (pesoVolumetrico <= 10) return 0;
+  if (pesoVolumetrico <= 20) return 3.5;
+  if (pesoVolumetrico <= 40) return 5;
+  if (pesoVolumetrico < 80) return 6;
+  if (pesoVolumetrico <= 100) return 6.5;
+  if (pesoVolumetrico <= 200) return 8;
   return 9;
 }
 
-function mostrar(cantidad, precio, cod_estado, categoria, peso_item, tipo_cliente) {
-  let precio_n = precio_neto(cantidad, precio);
-  let impuesto_estado = calcular_impuesto_estado(precio_n, cod_estado);
-  let impuesto_categoria = precio_n * obtener_porcentaje_impuesto_categoria(categoria);
-  let descuento_cliente = precio_n * obtener_porcentaje_descuento_cliente(tipo_cliente);
-  let precio_total = precio_n + impuesto_estado + impuesto_categoria - descuento_cliente;
+function mostrar(cantidad, precio, estado, categoria, pesoItem, tipoCliente) {
+  let precioN = precioNeto(cantidad, precio);
+  let impuestoEstado = calcularImpuestoEstado(precioN, estado);
+  let impuestoCategoria = precioN * obtenerPorcentajeImpuestoCategoria(categoria);
+  let descuentoCliente = precioN * obtenerPorcentajeDescuentoCliente(tipoCliente);
+  let precioTotal = precioN + impuestoEstado + impuestoCategoria - descuentoCliente;
   
   return `
-    Precio neto (${cantidad} * $${precio.toFixed(2)}): $${precio_n.toFixed(2)}<br>
-    Impuesto para ${cod_estado} (${(obtener_porcentaje_impuesto_estado(cod_estado) * 100).toFixed(2)}%): +$${impuesto_estado.toFixed(2)}<br>
-    Impuesto por categoría (${(obtener_porcentaje_impuesto_categoria(categoria) * 100).toFixed(2)}%): +$${impuesto_categoria.toFixed(2)}<br>
-    Descuento del Tipo de Cliente ${tipo_cliente}: -$${descuento_cliente.toFixed(2)}<br>
-    Precio total (con descuentos e impuestos): $${precio_total.toFixed(2)}<br>
+    Precio neto (${cantidad} * $${precio.toFixed(2)}): $${precioN.toFixed(2)}<br>
+    Impuesto para ${estado} (${(obtenerPorcentajeImpuestoEstado(estado) * 100).toFixed(2)}%): +$${impuestoEstado.toFixed(2)}<br>
+    Impuesto por categoría (${(obtenerPorcentajeImpuestoCategoria(categoria) * 100).toFixed(2)}%): +$${impuestoCategoria.toFixed(2)}<br>
+    Descuento del Tipo de Cliente ${tipoCliente}: -$${descuentoCliente.toFixed(2)}<br>
+    Precio total (con descuentos e impuestos): $${precioTotal.toFixed(2)}<br>
   `;
 }
 
 export {
-  precio_neto,
-  calcular_impuesto_estado,
-  calcular_descuento,
+  precioNeto,
+  calcularImpuestoEstado,
+  calcularDescuento,
   mostrar,
-  calcular_precio_total_con_impuesto,
-  calcular_costo_envio
+  calcularPrecioTotalConImpuesto,
+  calcularCostoEnvio
 };
+
