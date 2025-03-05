@@ -84,8 +84,9 @@ function mostrar(cantidad, precio, estado, categoria, pesoItem, tipoCliente) {
   let descuentoBeneficio = 0;
   if (tipoCliente === "Recurrente" && precioN > 3000 && categoria === "Alimentos") {
     descuentoBeneficio = 100;
-  } 
-
+  }else if (tipoCliente === "Especial" && precioN > 7000 && categoria === "Electronicos") {
+    descuentoBeneficio = 200;
+  }
   let precioFinal = precioN + impuestoEstado + impuestoCategoria - descuentoCliente - descuentoVolumen - descuentoBeneficio;
 
   return `
