@@ -76,18 +76,29 @@ function calcularCostoEnvio(cantidad, pesoItem) {
 function mostrar(cantidad, precio, estado, categoria, pesoItem, tipoCliente) {
   let precioN = precioNeto(cantidad, precio);
   let impuestoEstado = calcularImpuestoEstado(precioN, estado);
-  let impuestoCategoria = precioN * obtenerPorcentajeImpuestoCategoria(categoria);
+  let impuestoCategoria = calcularPrecioTotalConImpuesto(precioN, categoria) - precioN;
   let descuentoCliente = precioN * obtenerPorcentajeDescuentoCliente(tipoCliente);
-  let precioTotal = precioN + impuestoEstado + impuestoCategoria - descuentoCliente;
-  
+  let descuentoVolumen = calcularDescuento(precioN);
+
+  // Beneficio adicional para clientes "Recurrente" y "Especial"
+  let descuentoBeneficio = 0;
+  if (tipoCliente === "Recurrente" && precioN > 3000 && categoria === "Alimentos") {
+    descuentoBeneficio = 100;
+  } 
+
+  let precioFinal = precioN + impuestoEstado + impuestoCategoria - descuentoCliente - descuentoVolumen - descuentoBeneficio;
+
   return `
     Precio neto (${cantidad} * $${precio.toFixed(2)}): $${precioN.toFixed(2)}<br>
     Impuesto para ${estado} (${(obtenerPorcentajeImpuestoEstado(estado) * 100).toFixed(2)}%): +$${impuestoEstado.toFixed(2)}<br>
     Impuesto por categoría (${(obtenerPorcentajeImpuestoCategoria(categoria) * 100).toFixed(2)}%): +$${impuestoCategoria.toFixed(2)}<br>
+    Descuento por volumen de compra: -$${descuentoVolumen.toFixed(2)}<br>
     Descuento del Tipo de Cliente ${tipoCliente}: -$${descuentoCliente.toFixed(2)}<br>
-    Precio total (con descuentos e impuestos): $${precioTotal.toFixed(2)}<br>
+    ${descuentoBeneficio > 0 ? `Beneficio Cliente ${tipoCliente}: -$${descuentoBeneficio.toFixed(2)}<br>` : ""}
+    Precio total (con descuentos e impuestos): $${precioFinal.toFixed(2)}<br>
   `;
 }
+
 
 export {
   precioNeto,
